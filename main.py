@@ -128,3 +128,10 @@ class Optimization:
         result: list[float] = deepcopy(remains.width)
         result.remove(profile)
         return result
+
+    def optimize_cutting(self):
+        """
+        Метод для оптимизации разрезов.
+        :return: Пока не знаю.
+        """
+        pass
