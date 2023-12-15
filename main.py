@@ -105,9 +105,9 @@ class Optimization:
     def remove_collection_from_products(products: Products, collection: tuple[float]) -> list[float]:
         """
         Метод для удаления ширины изделий, входящих в коллекцию, из списка изделий.
-        :param products:
-        :param collection:
-        :return:
+        :param products: объект списка изделий.
+        :param collection: выборка изделий.
+        :return: список ширин изделий, без удаленных изделий.
         """
         # Скопируем список изделий
         result: list[float] = deepcopy(products.width)
@@ -115,4 +115,16 @@ class Optimization:
         for product in collection:
             result.remove(product)
 
+        return result
+
+    @staticmethod
+    def remove_profile_from_remains(remains: Remains, profile: float) -> list[float]:
+        """
+        Метод для удаления ширины профиля из списка остатков.
+        :param remains: объект списка остатков.
+        :param profile: ширины удаляемого профиля.
+        :return: Список оставшихся обрезков.
+        """
+        result: list[float] = deepcopy(remains.width)
+        result.remove(profile)
         return result
