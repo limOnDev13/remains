@@ -1,4 +1,5 @@
 from itertools import combinations
+from copy import deepcopy
 
 
 class Profile:
@@ -90,14 +91,36 @@ class Optimization:
 
         for i in range(products.get_number()):
             collections: list[tuple[float]] = list(combinations(products.width, i))
-
+            flag: bool = False
             for collection in collections:
                 if sum(collection) + len(collection) * products.delta < max_length_remain:
                     result_collections.append(collection)
+                    flag = True
+            if not flag:
+                break
 
         return result_collections
 
-    def optimize_cutting(self, products: Products, remains: Remains):
-        collections: list[tuple[float]] = self.get_all_collections(products, max(remains.width))
-        length: list[float] = [sum(collection) for collection in collections]
+    @staticmethod
+    def remove_collection(profiles: list[float], collection: tuple[float]) -> list[float]:
+        """
+        Метод вырезает из списка профилей выбранную коллекцию.
+        :param profiles: Список профилей.
+        :param collection: Удаляемая коллекция.
+        :return: Готовый список профилей без вырезанной коллекции.
+        """
+        for profile in collection:
+            profiles.remove(profile)
 
+        return profiles
+
+    @staticmethod
+    def remove_profile(profiles: list[float], profile: float) -> list[float]:
+        """
+        Метод вырезает один профиль из списка профилей.
+        :param profiles: Список длин профилей.
+        :param profile: Длины вырезаемого профиля.
+        :return: Список длин профилей без вырезанного профиля.
+        """
+        profiles.remove(profile)
+        return profiles
