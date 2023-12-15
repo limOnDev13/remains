@@ -102,25 +102,17 @@ class Optimization:
         return result_collections
 
     @staticmethod
-    def remove_collection(profiles: list[float], collection: tuple[float]) -> list[float]:
+    def remove_collection_from_products(products: Products, collection: tuple[float]) -> list[float]:
         """
-        Метод вырезает из списка профилей выбранную коллекцию.
-        :param profiles: Список профилей.
-        :param collection: Удаляемая коллекция.
-        :return: Готовый список профилей без вырезанной коллекции.
+        Метод для удаления ширины изделий, входящих в коллекцию, из списка изделий.
+        :param products:
+        :param collection:
+        :return:
         """
-        for profile in collection:
-            profiles.remove(profile)
+        # Скопируем список изделий
+        result: list[float] = deepcopy(products.width)
 
-        return profiles
+        for product in collection:
+            result.remove(product)
 
-    @staticmethod
-    def remove_profile(profiles: list[float], profile: float) -> list[float]:
-        """
-        Метод вырезает один профиль из списка профилей.
-        :param profiles: Список длин профилей.
-        :param profile: Длины вырезаемого профиля.
-        :return: Список длин профилей без вырезанного профиля.
-        """
-        profiles.remove(profile)
-        return profiles
+        return result
